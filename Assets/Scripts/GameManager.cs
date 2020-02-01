@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public enum GameState
 {
@@ -24,6 +26,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float startTimer = 3;
 
+    [SerializeField]
+    private CountdownUI countDownUI;
+
 
 
     // Start is called before the first frame update
@@ -45,6 +50,7 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Idle:
                 startTimer = 3;
+                countDownUI.gameObject.SetActive(false);
                 break;
             case GameState.Ready:
                 Timer = setting.GameTime;
@@ -53,6 +59,8 @@ public class GameManager : MonoBehaviour
                 {
                     State = GameState.Play;
                 }
+                countDownUI.UpdateValue(startTimer);
+                countDownUI.gameObject.SetActive(true);
                 break;
             case GameState.Play:
                 Timer -= Time.deltaTime;
@@ -62,9 +70,12 @@ public class GameManager : MonoBehaviour
 
                     // Decide Game End State
                 }
+                
+                countDownUI.gameObject.SetActive(false);
                 break;
             case GameState.End:
                 startTimer = 3;
+                countDownUI.gameObject.SetActive(false);
                 break;
         }
     }
