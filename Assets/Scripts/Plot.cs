@@ -27,6 +27,8 @@ public class Plot : MonoBehaviour
     private UnityEvent PlantEvent;
     [SerializeField]
     private UnityEvent HarvestEvent;
+    [SerializeField]
+    private UnityEvent EatEvent;
     
 
     private void Awake()
@@ -105,6 +107,7 @@ public class Plot : MonoBehaviour
         if (currentState > State.Crop)
         {
             currentState = State.Empty;
+            EatEvent.Invoke();
         }
         OnStateChange();
     }
@@ -153,6 +156,5 @@ public class Plot : MonoBehaviour
         {
             HarvestEvent.Invoke();
         }
-
     }
 }
