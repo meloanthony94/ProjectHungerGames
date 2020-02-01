@@ -12,6 +12,7 @@ public class GameSetting : ScriptableObject
 
     [Header("Global Setting")]
     public float GameTime = 20f;
+    public float PlayerRaycastLength = 5;
 
     [System.Serializable]
     public class TeamSetting
@@ -31,6 +32,5 @@ public class GameSetting : ScriptableObject
         public float HarvestSpeedSlow;
         public float EatSpeedFast;
         public float EatSpeedSlow;
-
     }
 }

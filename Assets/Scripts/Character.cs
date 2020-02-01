@@ -21,6 +21,8 @@ public class Character : MonoBehaviour
 
     Plot CurrentPlotReference = null;
 
+    public GameSetting gameSettings;
+
     [Header("Character Variables")]
     [SerializeField]
     bool isCritter = false;
@@ -29,11 +31,13 @@ public class Character : MonoBehaviour
     float walkSpeed = 0.1f;
 
     float currentMovementSpeed = 0.1f;
+    int layerMask;
 
     [Header("Dash Variables")]
     [SerializeField]
     [Range(0.0f, 2000.0f)]
     float dashForce;
+
     [SerializeField]
     ForceMode DashType;
 
@@ -50,6 +54,8 @@ public class Character : MonoBehaviour
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody>();
+        layerMask = 1 << 8;
+        layerMask = ~layerMask;
     }
 
     // Update is called once per frame
@@ -76,10 +82,16 @@ public class Character : MonoBehaviour
         }
         //
 
+        //Controls
         if (Input.GetButtonDown("Dash") && !isDashing && !isDashingLocked)
         {
             isDashing = true;
             myRigidBody.AddForce(transform.forward * dashForce, DashType);
+        }
+
+        if (Input.GetButtonDown("Action"))
+        {
+
         }
 
         //Raycast
@@ -87,6 +99,35 @@ public class Character : MonoBehaviour
         //if not, unhighlight, set to null or to new ref
         //Ternary
         //check against PlotLayer
+
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, gameSettings.PlayerRaycastLength, layerMask))
+        {
+            if (hit.transform.GetComponent<Plot>() != CurrentPlotReference)
+            {
+                if (CurrentPlotReference != null)
+                    CurrentPlotReference.Highlight(false);
+                
+                CurrentPlotReference = hit.transform.GetComponent<Plot>();
+                CurrentPlotReference.Highlight(true);
+            }
+
+            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            Debug.Log("Did Hit");
+        }
+        else
+        {
+            if (CurrentPlotReference != null)
+            {
+                CurrentPlotReference.Highlight(false);
+                CurrentPlotReference = null;
+            }
+            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * gameSettings.PlayerRaycastLength, Color.white);
+            Debug.Log("Did not Hit");
+        }
+
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * gameSettings.PlayerRaycastLength, Color.white);
     }
 
     IEnumerator DashCooldownTimer()
