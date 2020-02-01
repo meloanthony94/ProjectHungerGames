@@ -66,8 +66,8 @@ public class Character : MonoBehaviour
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody>();
-        layerMask = 1 << 8;
-        layerMask = ~layerMask;
+        layerMask = 1 << 9;
+        //layerMask = ~layerMask;
 
         //Set Team
         if (isCritter)
@@ -118,6 +118,7 @@ public class Character : MonoBehaviour
                     currentActionTime = 0;
                     SetActionTime(CurrentPlotReference.Action(isCritter));
                     myProgressBar.gameObject.SetActive(true);
+                    myRigidBody.isKinematic = true;
                 }
             }
         }
@@ -199,6 +200,7 @@ public class Character : MonoBehaviour
             isPerformingAction = false;
             CurrentPlotReference.ChangeState();
             myProgressBar.gameObject.SetActive(false);
+            myRigidBody.isKinematic = false;
         }
     }
 
