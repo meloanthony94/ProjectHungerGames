@@ -20,14 +20,20 @@ public class Plot : MonoBehaviour
         
     }
 
-    public bool Action(ActionType _action)
+    public ActionType Action(bool _isCritter)
     {
-        return false;
+        return ActionType.None;
+    }
+
+    public void ChangeState()
+    {
+
     }
 
     public void Highlight(bool isOn)
     {
 
     }
+
 
 }
