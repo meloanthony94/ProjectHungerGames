@@ -39,3 +39,4 @@ MonoBehaviour:
     EatSpeedFast: 0
     EatSpeedSlow: 0
   GameTime: 20
+  PlayerRaycastLength: 3.2

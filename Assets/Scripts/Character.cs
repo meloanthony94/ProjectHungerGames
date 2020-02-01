@@ -17,6 +17,9 @@ public class Character : MonoBehaviour
     [SerializeField]
     UnityEvent EatEvent;
 
+    [SerializeField]
+    private int playerId = 0;
+
     Rigidbody myRigidBody;
 
     Plot CurrentPlotReference = null;
@@ -64,7 +67,7 @@ public class Character : MonoBehaviour
         //Movement
         if (!isDashing)
         {
-            Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            Vector3 input = new Vector3(Input.GetAxis("Horizontal" + playerId), 0, -Input.GetAxis("Vertical" + playerId));
             if (input != Vector3.zero)
             {
                 transform.forward = input;
@@ -83,15 +86,21 @@ public class Character : MonoBehaviour
         //
 
         //Controls
-        if (Input.GetButtonDown("Dash") && !isDashing && !isDashingLocked)
+        if (Input.GetButtonDown("Dash" + playerId) && !isDashing && !isDashingLocked)
         {
             isDashing = true;
             myRigidBody.AddForce(transform.forward * dashForce, DashType);
         }
 
-        if (Input.GetButtonDown("Action"))
+        if (Input.GetButtonDown("Action" + playerId))
         {
-
+            if (CurrentPlotReference != null)
+            {
+                if (CurrentPlotReference.Action(isCritter) != ActionType.None)
+                {
+                    CurrentPlotReference.ChangeState();
+                }
+            }
         }
 
         //Raycast
@@ -106,15 +115,11 @@ public class Character : MonoBehaviour
         {
             if (hit.transform.GetComponent<Plot>() != CurrentPlotReference)
             {
-                if (CurrentPlotReference != null)
-                    CurrentPlotReference.Highlight(false);
+                CurrentPlotReference?.Highlight(false);
                 
                 CurrentPlotReference = hit.transform.GetComponent<Plot>();
-                CurrentPlotReference.Highlight(true);
+                CurrentPlotReference?.Highlight(true);
             }
-
-            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
         }
         else
         {
@@ -123,8 +128,6 @@ public class Character : MonoBehaviour
                 CurrentPlotReference.Highlight(false);
                 CurrentPlotReference = null;
             }
-            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * gameSettings.PlayerRaycastLength, Color.white);
-            Debug.Log("Did not Hit");
         }
 
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * gameSettings.PlayerRaycastLength, Color.white);
