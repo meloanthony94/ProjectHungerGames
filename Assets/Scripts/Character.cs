@@ -108,20 +108,7 @@ public class Character : MonoBehaviour
             myRigidBody.AddForce(transform.forward * dashForce, DashType);
         }
 
-        if (Input.GetButtonDown("Action" + playerId) && !isPerformingAction)
-        {
-            if (CurrentPlotReference != null)
-            {
-                if (CurrentPlotReference.Action(isCritter) != ActionType.None)
-                {
-                    isPerformingAction = true;
-                    currentActionTime = 0;
-                    SetActionTime(CurrentPlotReference.Action(isCritter));
-                    myProgressBar.gameObject.SetActive(true);
-                    myRigidBody.isKinematic = true;
-                }
-            }
-        }
+
 
         //Raycast
         RaycastHit hit;
@@ -146,6 +133,21 @@ public class Character : MonoBehaviour
         }
 
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * gameSettings.PlayerRaycastLength, Color.white);
+
+        if (Input.GetButtonDown("Action" + playerId) && !isPerformingAction)
+        {
+            if (CurrentPlotReference != null)
+            {
+                if (CurrentPlotReference.Action(isCritter) != ActionType.None)
+                {
+                    isPerformingAction = true;
+                    currentActionTime = 0;
+                    SetActionTime(CurrentPlotReference.Action(isCritter));
+                    myProgressBar.gameObject.SetActive(true);
+                    myRigidBody.isKinematic = true;
+                }
+            }
+        }
 
         if (isPerformingAction)
         {
