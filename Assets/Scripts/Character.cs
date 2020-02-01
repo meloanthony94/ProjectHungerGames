@@ -25,15 +25,23 @@ public class Character : MonoBehaviour
     Plot CurrentPlotReference = null;
 
     public GameSetting gameSettings;
+    public ProgressBar myProgressBar;
+    GameSetting.TeamSetting currentTeam;
+    bool isPerformingAction = false;
+
 
     [Header("Character Variables")]
     [SerializeField]
     bool isCritter = false;
     [SerializeField]
+    bool isFastCharacter = false;
+    [SerializeField]
     [Range(0.0f, 1.0f)]
     float walkSpeed = 0.1f;
 
     float currentMovementSpeed = 0.1f;
+    float actionCompleteTime = 0;
+    float currentActionTime = 0;
     int layerMask;
 
     [Header("Dash Variables")]
@@ -53,19 +61,27 @@ public class Character : MonoBehaviour
     public float minimumDashVelocity = 0.5f;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody>();
         layerMask = 1 << 8;
         layerMask = ~layerMask;
+
+        //Set Team
+        if (isCritter)
+            currentTeam = gameSettings.Critter;
+        else
+            currentTeam = gameSettings.Farmer;
+        //
     }
 
     // Update is called once per frame
     void Update()
     {
         //Movement
-        if (!isDashing)
+        if (!isDashing && !isPerformingAction)
         {
             Vector3 input = new Vector3(Input.GetAxis("Horizontal" + playerId), 0, -Input.GetAxis("Vertical" + playerId));
             if (input != Vector3.zero)
@@ -92,23 +108,21 @@ public class Character : MonoBehaviour
             myRigidBody.AddForce(transform.forward * dashForce, DashType);
         }
 
-        if (Input.GetButtonDown("Action" + playerId))
+        if (Input.GetButtonDown("Action" + playerId) && !isPerformingAction)
         {
             if (CurrentPlotReference != null)
             {
                 if (CurrentPlotReference.Action(isCritter) != ActionType.None)
                 {
-                    CurrentPlotReference.ChangeState();
+                    isPerformingAction = true;
+                    currentActionTime = 0;
+                    SetActionTime(CurrentPlotReference.Action(isCritter));
+                    myProgressBar.gameObject.SetActive(true);
                 }
             }
         }
 
         //Raycast
-        //if hit a plot, grab that ref if current ref is null
-        //if not, unhighlight, set to null or to new ref
-        //Ternary
-        //check against PlotLayer
-
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, gameSettings.PlayerRaycastLength, layerMask))
@@ -131,6 +145,61 @@ public class Character : MonoBehaviour
         }
 
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * gameSettings.PlayerRaycastLength, Color.white);
+
+        if (isPerformingAction)
+        {
+            if(CurrentPlotReference != null)
+                PerformPlotAction(CurrentPlotReference.Action(isCritter));
+        }
+    }
+
+    void SetActionTime(ActionType action)
+    {
+        switch (action)
+        {
+            case ActionType.Dig:
+                if (isFastCharacter)
+                    actionCompleteTime = currentTeam.DigSpeedFast;
+                else
+                    actionCompleteTime = currentTeam.DigSpeedFast;
+                break;
+            case ActionType.Plant:
+                if (isFastCharacter)
+                    actionCompleteTime = currentTeam.PlantSpeedFast;
+                else
+                    actionCompleteTime = currentTeam.PlantSpeedSlow;
+                break;
+            case ActionType.Harvest:
+                if (isFastCharacter)
+                    actionCompleteTime = currentTeam.HarvestSpeedFast;
+                else
+                    actionCompleteTime = currentTeam.HarvestSpeedSlow;
+                break;
+            case ActionType.Eat:
+                if (isFastCharacter)
+                    actionCompleteTime = currentTeam.EatSpeedFast;
+                else
+                    actionCompleteTime = currentTeam.EatSpeedSlow;
+                break;
+            case ActionType.None:
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    void PerformPlotAction(ActionType action)
+    {
+        currentActionTime += Time.deltaTime;
+        myProgressBar.BarValue = (currentActionTime / actionCompleteTime) * 100;
+
+        if (currentActionTime >= actionCompleteTime)
+        {
+            isPerformingAction = false;
+            CurrentPlotReference.ChangeState();
+            myProgressBar.gameObject.SetActive(false);
+        }
     }
 
     IEnumerator DashCooldownTimer()
