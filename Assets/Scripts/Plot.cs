@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Plot : MonoBehaviour
 {
@@ -21,6 +22,12 @@ public class Plot : MonoBehaviour
     private bool isOccupied = false;
 
     private int highlightCounter = 0;
+
+    [SerializeField]
+    private UnityEvent PlantEvent;
+    [SerializeField]
+    private UnityEvent HarvestEvent;
+    
 
     private void Awake()
     {
@@ -137,5 +144,15 @@ public class Plot : MonoBehaviour
         models[(int)currentState].gameObject.SetActive(true);
 
         UpdateHighlight();
+
+        if (currentState == State.Plant)
+        {
+            PlantEvent.Invoke();
+        }
+        else if (currentState == State.Crop)
+        {
+            HarvestEvent.Invoke();
+        }
+
     }
 }
