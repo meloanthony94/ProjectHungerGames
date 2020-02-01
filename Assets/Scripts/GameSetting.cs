@@ -17,10 +17,10 @@ public class GameSetting : ScriptableObject
     public class TeamSetting
     {
         [Header("Health")]
-        public int InitHealth;
-        public int HealthGainAmount;
-        public int HealthLostAmount;
-        public int HealthLostRate;
+        public float InitHealth;
+        public float HealthGainAmount;
+        public float HealthLostAmount;
+        public float HealthLostRate;
 
         [Header("Action Speed")]
         public float DigSpeedFast;

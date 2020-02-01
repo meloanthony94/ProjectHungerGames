@@ -71,11 +71,6 @@ public class ProgressBarCircle : MonoBehaviour {
 
     }
 
-    private void OnValidate()
-    {
-        UpdateValue(barValue);
-    }
-
     void UpdateValue(float val)
     {
        

@@ -47,11 +47,6 @@ public class ProgressBar : MonoBehaviour
         }
     }
 
-    private void OnValidate()
-    {
-        UpdateValue(barValue);
-    }
-
     private void Awake()
     {
         bar = transform.Find("Bar").GetComponent<Image>();

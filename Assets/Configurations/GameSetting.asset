@@ -12,3 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c89596bb394d4d60b0a2f0e2edd45f5, type: 3}
   m_Name: GameSetting
   m_EditorClassIdentifier: 
+  Farmer:
+    InitHealth: 50
+    HealthGainAmount: 5
+    HealthLostAmount: 5
+    HealthLostRate: 0
+    DigSpeedFast: 0
+    DigSpeedSlow: 0
+    PlantSpeedFast: 0
+    PlantSpeedSlow: 0
+    HarvestSpeedFast: 0
+    HarvestSpeedSlow: 0
+    EatSpeedFast: 0
+    EatSpeedSlow: 0
+  Critter:
+    InitHealth: 100
+    HealthGainAmount: 5
+    HealthLostAmount: 2
+    HealthLostRate: 1
+    DigSpeedFast: 0
+    DigSpeedSlow: 0
+    PlantSpeedFast: 0
+    PlantSpeedSlow: 0
+    HarvestSpeedFast: 0
+    HarvestSpeedSlow: 0
+    EatSpeedFast: 0
+    EatSpeedSlow: 0
+  GameTime: 20
