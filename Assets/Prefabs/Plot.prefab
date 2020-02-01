@@ -120,7 +120,7 @@ Transform:
   m_GameObject: {fileID: 983458920919541256}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.8719448, y: 1.8719448, z: 1.8719448}
   m_Children:
   - {fileID: 983458921442559375}
   - {fileID: 983458922613089860}
@@ -160,6 +160,12 @@ MonoBehaviour:
   - {fileID: 983458922613089861}
   - {fileID: 983458921637890618}
   - {fileID: 983458920892758263}
+  PlantEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  HarvestEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &983458921442559371
 GameObject:
   m_ObjectHideFlags: 0
