@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -133,9 +134,12 @@ public class GameManager : MonoBehaviour
             isDownPadActive = false;
         }
 
-        if (Input.GetButtonDown("Touchpad") && (setting.State == GameSetting.GameState.Idle || setting.State == GameSetting.GameState.End))
+        if (Input.GetButtonDown("Touchpad"))
         {
-            setting.State = GameSetting.GameState.Ready;
+            if (setting.State == GameSetting.GameState.Idle)
+                setting.State = GameSetting.GameState.Ready;
+            else if (setting.State == GameSetting.GameState.End)
+                SceneManager.LoadScene("Main Game");
         }
 
         switch (setting.State)
@@ -169,8 +173,9 @@ public class GameManager : MonoBehaviour
                         CritterWinScreen.SetActive(true);
                     }
 
-                    MenuPanelActivator(GameOverPanel);
                     MainMenuPanel.SetActive(true);
+                    TitlePanel.SetActive(false);
+                    MenuPanelActivator(GameOverPanel);
                 }
 
                 gameTimerUI.UpdateTimer(Timer);

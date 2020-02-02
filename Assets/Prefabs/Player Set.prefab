@@ -355,6 +355,11 @@ PrefabInstance:
       propertyPath: actionUI
       value: 
       objectReference: {fileID: 1967229462}
+    - target: {fileID: 5768478776532664930, guid: 6ca7d71f743321b4db2292550716240f,
+        type: 3}
+      propertyPath: attackForce
+      value: 9.01
+      objectReference: {fileID: 0}
     - target: {fileID: 5768478776532664933, guid: 6ca7d71f743321b4db2292550716240f,
         type: 3}
       propertyPath: m_Name
