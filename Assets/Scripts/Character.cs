@@ -26,6 +26,7 @@ public class Character : MonoBehaviour
 
     public GameSetting gameSettings;
     public ProgressBar myProgressBar;
+    public ActionUI actionUI;
     GameSetting.TeamSetting currentTeam;
     bool isPerformingAction = false;
 
@@ -196,6 +197,7 @@ public class Character : MonoBehaviour
     {
         currentActionTime += Time.deltaTime;
         myProgressBar.BarValue = (currentActionTime / actionCompleteTime) * 100;
+        actionUI.SetAction(action);
 
         if (currentActionTime >= actionCompleteTime)
         {

@@ -203,6 +203,7 @@ MonoBehaviour:
   EatEvent:
     m_PersistentCalls:
       m_Calls: []
+  playerId: 0
   gameSettings: {fileID: 11400000, guid: e89f2e140ada94a7385aa2e34814120c, type: 2}
   isCritter: 0
   walkSpeed: 0.1
