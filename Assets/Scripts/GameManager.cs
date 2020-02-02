@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private CountdownUI countDownUI;
 
+    [SerializeField]
+    private CountdownTimerUI gameTimerUI;
+
 
 
     // Start is called before the first frame update
@@ -67,9 +70,10 @@ public class GameManager : MonoBehaviour
                 if (Timer <= 0)
                 {
                     State = GameState.End;
-
+                    Timer = 0;
                     // Decide Game End State
                 }
+                gameTimerUI.UpdateTimer(Timer);
                 
                 countDownUI.gameObject.SetActive(false);
                 break;
