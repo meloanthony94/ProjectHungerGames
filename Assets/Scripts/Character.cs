@@ -155,10 +155,10 @@ public class Character : MonoBehaviour
 
         PerformRaycast();
 
-       // if(Input.GetKeyDown(KeyCode.A))
-       // {
-       //     animator.SetTrigger("action");
-       // }
+       //if(Input.GetKeyDown(KeyCode.A))
+       //
+       //   animator.SetTrigger("action");
+       //
 
         if (Input.GetButtonDown("Action" + playerId) && !isPerformingAction && gameSettings.State == GameSetting.GameState.Play)
         {
