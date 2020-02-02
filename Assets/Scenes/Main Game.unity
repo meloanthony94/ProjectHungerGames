@@ -932,6 +932,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5336470930304908463, guid: c6a33c497192b44949987871541a93d3,
         type: 3}
       propertyPath: m_IsActive
@@ -1072,6 +1076,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 1.21
       objectReference: {fileID: 0}
+    - target: {fileID: 7318436136705336747, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 65e698c0072de9d4fab96086d396952d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6a33c497192b44949987871541a93d3, type: 3}
 --- !u!4 &161808394 stripped
@@ -4268,6 +4277,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5336470930304908463, guid: c6a33c497192b44949987871541a93d3,
         type: 3}
       propertyPath: m_IsActive
@@ -4403,6 +4416,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 1.21
       objectReference: {fileID: 0}
+    - target: {fileID: 7318436136705336747, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fae3e604d242ef94b92f06b342a7c244, type: 2}
+    - target: {fileID: 7318436136705336747, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 0723f91c66a21ef4b8f545cf3fa60b32, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6a33c497192b44949987871541a93d3, type: 3}
 --- !u!4 &685401340 stripped
@@ -7846,6 +7869,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5336470930304908463, guid: c6a33c497192b44949987871541a93d3,
         type: 3}
       propertyPath: m_IsActive
@@ -7991,7 +8018,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 1.733
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7318436136705336747, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: bb93b3ea3a9d8b943abb57c961736943, type: 2}
+    - target: {fileID: 7318436136705336747, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: dd7b31977e3c3154a96d3f2787ace33c, type: 3}
+    m_RemovedComponents:
+    - {fileID: 3121358808303487666, guid: c6a33c497192b44949987871541a93d3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c6a33c497192b44949987871541a93d3, type: 3}
 --- !u!4 &1348848126 stripped
 Transform:
@@ -9725,6 +9763,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5336470930304908463, guid: c6a33c497192b44949987871541a93d3,
         type: 3}
       propertyPath: m_IsActive
@@ -9860,6 +9902,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 1.21
       objectReference: {fileID: 0}
+    - target: {fileID: 7318436136705336747, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1ab23dc30c2e20e428f89c3e97fdd140, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6a33c497192b44949987871541a93d3, type: 3}
 --- !u!4 &1610172699 stripped
