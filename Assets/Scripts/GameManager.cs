@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -137,9 +136,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetButtonDown("Touchpad"))
         {
             if (setting.State == GameSetting.GameState.Idle)
-                setting.State = GameSetting.GameState.Ready;
-            else if (setting.State == GameSetting.GameState.End)
-                SceneManager.LoadScene("Main Game");
+                setting.State = GameSetting.GameState.Ready;    
         }
 
         switch (setting.State)
@@ -181,9 +178,8 @@ public class GameManager : MonoBehaviour
                 gameTimerUI.UpdateTimer(Timer);
                 countDownUI.gameObject.SetActive(false);
                 break;
+
                 case GameSetting.GameState.End:
-
-
                 startTimer = 4;
                 countDownUI.gameObject.SetActive(false);
                 break;
