@@ -30,7 +30,24 @@ public class Character : MonoBehaviour
     GameSetting.TeamSetting currentTeam;
     bool isPerformingAction = false;
 
+    #region Audio
+    [Header("Audio Clips")]
+    AudioSource myAudioSource;
 
+    [SerializeField]
+    AudioClip actionStartSFXclip;
+
+    [SerializeField]
+    AudioClip actionEndSFXclip;
+
+    [SerializeField]
+    AudioClip dashSFXclip;
+
+    [SerializeField]
+    AudioClip bumpSFXclip;
+    #endregion
+
+    #region Character Variables
     [Header("Character Variables")]
     [SerializeField]
     bool isCritter = false;
@@ -44,7 +61,9 @@ public class Character : MonoBehaviour
     float actionCompleteTime = 0;
     float currentActionTime = 0;
     int layerMask;
+    #endregion
 
+    #region Dash Variables
     [Header("Dash Variables")]
     [SerializeField]
     [Range(0.0f, 2000.0f)]
@@ -67,12 +86,14 @@ public class Character : MonoBehaviour
     [Range(0.0f, 5.0f)]
     //The variable controls when the user can start moving again during dash. 0 = very end of dash
     public float minimumDashVelocity = 0.5f;
-
+    #endregion
 
 
     // Start is called before the first frame update
     void Start()
     {
+        myAudioSource = GetComponent<AudioSource>();
+
         myRigidBody = GetComponent<Rigidbody>();
         layerMask = 1 << 9;
         //layerMask = ~layerMask;
@@ -113,11 +134,59 @@ public class Character : MonoBehaviour
         if (Input.GetButtonDown("Dash" + playerId) && !isDashing && !isDashingLocked)
         {
             isDashing = true;
+
+            if(gameSettings.State == GameSetting.GameState.Play)
+                PlaySFX(dashSFXclip);
+
             myRigidBody.AddForce(transform.forward * dashForce, DashType);
         }
 
+        PerformRaycast();
 
+        if (Input.GetButtonDown("Action" + playerId) && !isPerformingAction && gameSettings.State == GameSetting.GameState.Play)
+        {
+            if (CurrentPlotReference != null)
+            {
+                if (CurrentPlotReference.Action(isCritter) != ActionType.None)
+                {
+                    PlaySFX(actionStartSFXclip);
+                    isPerformingAction = true;
+                    currentActionTime = 0;
+                    SetActionTime(CurrentPlotReference.Action(isCritter));
+                    myProgressBar.gameObject.SetActive(true);
+                    myRigidBody.isKinematic = true;
+                }
+            }
+        }
 
+        if (isPerformingAction)
+        {
+            if (CurrentPlotReference != null)
+            {
+                PerformPlotAction(CurrentPlotReference.Action(isCritter));
+            }
+        }
+
+        if(gameSettings.State == GameSetting.GameState.End)
+            myAudioSource.Stop();
+    }
+
+    void PlaySFX(AudioClip clip, bool isOneShot = true, bool isLooped = false)
+    {
+        myAudioSource.loop = isLooped;
+        myAudioSource.pitch = Random.Range(0.95f, 1.05f);
+
+        if (isOneShot)
+            myAudioSource.PlayOneShot(clip);
+        else
+        {
+            myAudioSource.clip = clip;
+            myAudioSource.Play();
+        }
+    }
+
+    void PerformRaycast()
+    {
         //Raycast
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
@@ -126,7 +195,7 @@ public class Character : MonoBehaviour
             if (hit.transform.GetComponent<Plot>() != CurrentPlotReference)
             {
                 CurrentPlotReference?.Highlight(false);
-                
+
                 CurrentPlotReference = hit.transform.GetComponent<Plot>();
                 CurrentPlotReference?.Highlight(true);
             }
@@ -141,27 +210,6 @@ public class Character : MonoBehaviour
         }
 
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * gameSettings.PlayerRaycastLength, Color.white);
-
-        if (Input.GetButtonDown("Action" + playerId) && !isPerformingAction)
-        {
-            if (CurrentPlotReference != null)
-            {
-                if (CurrentPlotReference.Action(isCritter) != ActionType.None)
-                {
-                    isPerformingAction = true;
-                    currentActionTime = 0;
-                    SetActionTime(CurrentPlotReference.Action(isCritter));
-                    myProgressBar.gameObject.SetActive(true);
-                    myRigidBody.isKinematic = true;
-                }
-            }
-        }
-
-        if (isPerformingAction)
-        {
-            if(CurrentPlotReference != null)
-                PerformPlotAction(CurrentPlotReference.Action(isCritter));
-        }
     }
 
     void SetActionTime(ActionType action)
@@ -202,6 +250,7 @@ public class Character : MonoBehaviour
 
     public void OnAttacked()
     {
+        PlaySFX(bumpSFXclip);
         isPerformingAction = false;
         myProgressBar.gameObject.SetActive(false);
         myRigidBody.isKinematic = false;
@@ -215,6 +264,7 @@ public class Character : MonoBehaviour
 
         if (currentActionTime >= actionCompleteTime)
         {
+            PlaySFX(actionEndSFXclip);
             isPerformingAction = false;
             CurrentPlotReference.ChangeState();
             myProgressBar.gameObject.SetActive(false);

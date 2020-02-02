@@ -6643,7 +6643,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 6
+    axis: 7
     joyNum: 3
   - serializedVersion: 3
     m_Name: DPAD Y-Axis
@@ -6660,4 +6660,4 @@ InputManager:
     invert: 0
     type: 2
     axis: 8
-    joyNum: 3
+    joyNum: 1

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -36,6 +35,28 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private CountdownTimerUI gameTimerUI;
 
+    [SerializeField]
+    private AudioSource menuEffectAudioSource;
+
+    [SerializeField]
+    private AudioSource backgroundAudioSource;
+
+    [SerializeField]
+    private AudioSource menuBoardAudioSource;
+
+    [SerializeField]
+    private AudioClip mainMenuClip;
+    [SerializeField]
+    private AudioClip gamePlayClip;
+    [SerializeField]
+    private AudioClip winScreenClip;
+
+    [SerializeField]
+    private AudioClip menuClickClip;
+    [SerializeField]
+    private AudioClip menuInClip;
+
+
     GameObject currentMenuPanel;
 
     bool isLeftPadActive = false;
@@ -56,11 +77,15 @@ public class GameManager : MonoBehaviour
         currentMenuPanel?.SetActive(false);
         currentMenuPanel = panel;
         currentMenuPanel.SetActive(true);
+        
+        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        print(Input.GetAxisRaw("DPAD X-Axis"));
         // Handle Input
         if (Input.GetAxisRaw("DPAD X-Axis") == -1 && !isLeftPadActive)
         {
@@ -68,17 +93,23 @@ public class GameManager : MonoBehaviour
             {
                 if (setting.State == GameSetting.GameState.End)
                     TitlePanel.SetActive(false);
-
+                menuEffectAudioSource.PlayOneShot(menuClickClip);
+                menuBoardAudioSource.PlayOneShot(menuInClip);
                 MenuPanelActivator(CreditsPanel);
+
             }
             else if (currentMenuPanel == HowToPlayPanel)
             {
                 if (setting.State == GameSetting.GameState.Idle)
+                {
                     MenuPanelActivator(TitlePanel);
+                    menuEffectAudioSource.PlayOneShot(menuClickClip);
+                }
                 else if (setting.State == GameSetting.GameState.End)
                 {
                     TitlePanel.SetActive(true);
                     MenuPanelActivator(GameOverPanel);
+                    menuEffectAudioSource.PlayOneShot(menuClickClip);
                 }
             }
 
@@ -94,11 +125,15 @@ public class GameManager : MonoBehaviour
             if (currentMenuPanel == CreditsPanel)
             {
                 if (setting.State == GameSetting.GameState.Idle)
+                {
                     MenuPanelActivator(TitlePanel);
+                    menuEffectAudioSource.PlayOneShot(menuClickClip);
+                }
                 else if (setting.State == GameSetting.GameState.End)
                 {
                     TitlePanel.SetActive(true);
                     MenuPanelActivator(GameOverPanel);
+                    menuEffectAudioSource.PlayOneShot(menuClickClip);
                 }
             }
             else if ((setting.State == GameSetting.GameState.Idle || setting.State == GameSetting.GameState.End) && (currentMenuPanel == TitlePanel || currentMenuPanel == GameOverPanel))
@@ -107,6 +142,7 @@ public class GameManager : MonoBehaviour
                     TitlePanel.SetActive(false);
 
                 MenuPanelActivator(HowToPlayPanel);
+                menuEffectAudioSource.PlayOneShot(menuClickClip);
             }
 
             isRightPadActive = true;
@@ -137,9 +173,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetButtonDown("Touchpad"))
         {
             if (setting.State == GameSetting.GameState.Idle)
+            {
                 setting.State = GameSetting.GameState.Ready;
-            else if (setting.State == GameSetting.GameState.End)
-                SceneManager.LoadScene("Main Game");
+                menuEffectAudioSource.PlayOneShot(menuClickClip);
+            }
         }
 
         switch (setting.State)
@@ -147,6 +184,7 @@ public class GameManager : MonoBehaviour
             case GameSetting.GameState.Idle:
                 startTimer = 4;
                 countDownUI.gameObject.SetActive(false);
+                PlayBackgroundMusic(mainMenuClip);
                 break;
             case GameSetting.GameState.Ready:
                 currentMenuPanel = MainMenuPanel;
@@ -159,9 +197,12 @@ public class GameManager : MonoBehaviour
                 }
                 countDownUI.UpdateValue(startTimer);
                 countDownUI.gameObject.SetActive(true);
+                //PlayBackgroundMusic(gameStartCountDownClip, false);
+                PlayBackgroundMusic(gamePlayClip);
                 break;
             case GameSetting.GameState.Play:
                 Timer -= Time.deltaTime;
+                
                 if (Timer <= 0)
                 {
                     setting.State = GameSetting.GameState.End;
@@ -176,17 +217,34 @@ public class GameManager : MonoBehaviour
                     MainMenuPanel.SetActive(true);
                     TitlePanel.SetActive(false);
                     MenuPanelActivator(GameOverPanel);
+                    //backgroundAudioSource.pitch = 1.0f;
                 }
+                //else if (Timer <= 5)
+                //{
+                //    backgroundAudioSource.pitch = 1.2f;
+                //}
 
                 gameTimerUI.UpdateTimer(Timer);
                 countDownUI.gameObject.SetActive(false);
                 break;
+
                 case GameSetting.GameState.End:
-
-
+                //menuEffectAudioSource.PlayOneShot(winCheerClip);
+                PlayBackgroundMusic(winScreenClip);
                 startTimer = 4;
                 countDownUI.gameObject.SetActive(false);
                 break;
+        }
+    }
+
+    void PlayBackgroundMusic(AudioClip clip, bool loop = true)
+    {
+        if (backgroundAudioSource.clip != clip)
+        {
+            backgroundAudioSource.Stop();
+            backgroundAudioSource.clip = clip;
+            backgroundAudioSource.loop = loop;
+            backgroundAudioSource.Play();
         }
     }
 }
