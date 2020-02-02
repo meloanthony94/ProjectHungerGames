@@ -37,7 +37,11 @@ public class Plot : MonoBehaviour
         {
             models[i].Initialize();
         }
-        OnStateChange();    
+    }
+
+    private void Start()
+    {
+        OnStateChange();
     }
 
     private void Update()

@@ -88,11 +88,14 @@ public class Character : MonoBehaviour
     public float minimumDashVelocity = 0.5f;
     #endregion
 
+    Animator animator;
+
 
     // Start is called before the first frame update
     void Start()
     {
         myAudioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
 
         myRigidBody = GetComponent<Rigidbody>();
         layerMask = 1 << 9;
@@ -115,15 +118,20 @@ public class Character : MonoBehaviour
             Vector3 input = new Vector3(Input.GetAxis("Horizontal" + playerId), 0, -Input.GetAxis("Vertical" + playerId));
             if (input != Vector3.zero)
             {
+                animator.SetFloat("DashMulti", 1);
+                animator.SetBool("dash", true);
                 transform.forward = input;
                 myRigidBody.MovePosition(transform.position + (transform.forward * walkSpeed));
                 //transform.Translate(transform.forward * movementSpeed, Space.World);
             }
+            else
+                animator.SetBool("dash", false);
         }
         else
         {
             if (myRigidBody.velocity.magnitude < minimumDashVelocity)
             {
+                //animator.SetTrigger("idle");
                 isDashing = false;
                 StartCoroutine(DashCooldownTimer());
             }
@@ -131,17 +139,26 @@ public class Character : MonoBehaviour
         //
 
         //Controls
-        if (Input.GetButtonDown("Dash" + playerId) && !isDashing && !isDashingLocked)
+        if (Input.GetButtonDown("Dash" + playerId) && !isDashing && !isDashingLocked /*|| Input.GetKeyDown(KeyCode.D)*/)
         {
             isDashing = true;
 
-            if(gameSettings.State == GameSetting.GameState.Play)
+            if (gameSettings.State == GameSetting.GameState.Play)
+            {
+                animator.SetBool("dash", true);
+                animator.SetFloat("DashMulti", 2);
                 PlaySFX(dashSFXclip);
+            }
 
             myRigidBody.AddForce(transform.forward * dashForce, DashType);
         }
 
         PerformRaycast();
+
+       // if(Input.GetKeyDown(KeyCode.A))
+       // {
+       //     animator.SetTrigger("action");
+       // }
 
         if (Input.GetButtonDown("Action" + playerId) && !isPerformingAction && gameSettings.State == GameSetting.GameState.Play)
         {
@@ -149,6 +166,7 @@ public class Character : MonoBehaviour
             {
                 if (CurrentPlotReference.Action(isCritter) != ActionType.None)
                 {
+                    animator.SetTrigger("action");
                     PlaySFX(actionStartSFXclip);
                     isPerformingAction = true;
                     currentActionTime = 0;
@@ -264,6 +282,7 @@ public class Character : MonoBehaviour
 
         if (currentActionTime >= actionCompleteTime)
         {
+            animator.SetTrigger("idle");
             PlaySFX(actionEndSFXclip);
             isPerformingAction = false;
             CurrentPlotReference.ChangeState();
