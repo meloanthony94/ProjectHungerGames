@@ -57,3 +57,11 @@ MonoBehaviour:
   CritterWinScreen: {fileID: 0}
   FarmerWinScreen: {fileID: 0}
   gameTimerUI: {fileID: 0}
+  menuEffectAudioSource: {fileID: 0}
+  backgroundAudioSource: {fileID: 0}
+  menuBoardAudioSource: {fileID: 0}
+  mainMenuClip: {fileID: 8300000, guid: 2c911c9fcc08740488d266502e5f2b0d, type: 3}
+  gamePlayClip: {fileID: 8300000, guid: 439ac062dcedc406985213a48c8f99c7, type: 3}
+  winScreenClip: {fileID: 8300000, guid: 3401937bf445e4ebaa211854516e1e44, type: 3}
+  menuClickClip: {fileID: 8300000, guid: a7efd97149afc485c8a335d187027130, type: 3}
+  menuInClip: {fileID: 8300000, guid: c41772cdf00d44985ab267819498912a, type: 3}
