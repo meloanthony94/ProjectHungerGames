@@ -165,7 +165,7 @@ public class Character : MonoBehaviour
                 if (isFastCharacter)
                     actionCompleteTime = currentTeam.DigSpeedFast;
                 else
-                    actionCompleteTime = currentTeam.DigSpeedFast;
+                    actionCompleteTime = currentTeam.DigSpeedSlow;
                 break;
             case ActionType.Plant:
                 if (isFastCharacter)
