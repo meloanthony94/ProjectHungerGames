@@ -17,7 +17,7 @@ MonoBehaviour:
     HealthGainAmount: 5
     HealthLostAmount: 5
     HealthLostRate: 0
-    CurrentHealth: 50
+    CurrentHealth: 55
     DigSpeedFast: 0.25
     DigSpeedSlow: 0.75
     PlantSpeedFast: 0.75

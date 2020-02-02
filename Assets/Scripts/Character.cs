@@ -169,6 +169,7 @@ public class Character : MonoBehaviour
             {
                 if (CurrentPlotReference.Action(isCritter) != ActionType.None)
                 {
+                    animator.SetBool("action", true);
                     isPerformingAction = true;
                     currentActionTime = 0;
                     SetActionTime(CurrentPlotReference.Action(isCritter));
