@@ -17,6 +17,7 @@ public class LookAt : MonoBehaviour
     {
         //Vector3 lookAtMe = target.position;
         transform.LookAt(target);
+        transform.Rotate(0, 180, 0);
         //transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
     }
 }
