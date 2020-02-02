@@ -13,13 +13,17 @@ public class CountdownUI : MonoBehaviour
     void Awake()
     {
         image = GetComponent<Image>();
-        image.sprite = imageSprites[2];
+        image.sprite = imageSprites[3];
     }
 
     // Update is called once per frame
     public void UpdateValue(float value)
     {
-        if (value > 2)
+        if (value > 3)
+        {
+            image.sprite = imageSprites[3];
+        }
+        else if (value > 2)
         {
             image.sprite = imageSprites[2];
         }

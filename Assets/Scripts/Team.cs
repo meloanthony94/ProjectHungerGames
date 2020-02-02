@@ -56,7 +56,13 @@ public class Team : MonoBehaviour
 
     public void Update()
     {
-        if (isCritter)
+        if (setting.State == GameSetting.GameState.Ready)
+        {
+            Health = teamSetting.InitHealth;
+            progressBar.BarValue = Health;
+        }
+
+        if (isCritter && setting.State == GameSetting.GameState.Play)
         {
             Health -= teamSetting.HealthLostAmount * teamSetting.HealthLostRate * Time.deltaTime;
             progressBar.BarValue = health;
@@ -64,24 +70,12 @@ public class Team : MonoBehaviour
 
         if (isCritter)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                HealthUp();
-            }
+            setting.Critter.CurrentHealth = Health;
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                HealthUp();
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                HealthDown();
-            }
+            setting.Farmer.CurrentHealth = Health;
         }
-        
-        
     }
 
     public void HealthUp()

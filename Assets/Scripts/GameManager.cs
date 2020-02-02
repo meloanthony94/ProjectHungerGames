@@ -4,77 +4,177 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public enum GameState
-{
-    Idle,
-    Ready,
-    Play,
-    End
-}
-
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private GameSetting setting;
 
-    [SerializeField]
-    private GameState State = GameState.Idle;
+    //[SerializeField]
+    //private GameState State = GameState.Idle;
 
     [SerializeField]
     private float Timer = 30;
 
     [SerializeField]
-    private float startTimer = 3;
+    private float startTimer = 4;
 
     [SerializeField]
     private CountdownUI countDownUI;
 
+    public GameObject MainMenuPanel;
+    public GameObject PausePanel;
+    public GameObject TitlePanel;
+    public GameObject HowToPlayPanel;
+    public GameObject CreditsPanel;
+    public GameObject GameOverPanel;
+    public GameObject inGameUIGroup;
+    public GameObject CritterWinScreen;
+    public GameObject FarmerWinScreen;
 
+    GameObject currentMenuPanel;
+
+    bool isLeftPadActive = false;
+    bool isRightPadActive = false;
+    bool isUpPadActive = false;
+    bool isDownPadActive = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        setting.State = GameSetting.GameState.Idle;
+        inGameUIGroup.SetActive(false);
+        currentMenuPanel = TitlePanel;
+    }
+
+    void MenuPanelActivator(GameObject panel)
+    {
+        currentMenuPanel?.SetActive(false);
+        currentMenuPanel = panel;
+        currentMenuPanel.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
         // Handle Input
-        //if (Input.GetButtonDown(""))
-        //{
-        //    //if (GameState.Idle)
-        //}
-
-        switch (State)
+        if (Input.GetAxisRaw("DPAD X-Axis") == -1 && !isLeftPadActive)
         {
-            case GameState.Idle:
-                startTimer = 3;
+            if ((setting.State == GameSetting.GameState.Idle || setting.State == GameSetting.GameState.End) && (currentMenuPanel == TitlePanel || currentMenuPanel == GameOverPanel))
+            {
+                if (setting.State == GameSetting.GameState.End)
+                    TitlePanel.SetActive(false);
+
+                MenuPanelActivator(CreditsPanel);
+            }
+            else if (currentMenuPanel == HowToPlayPanel)
+            {
+                if (setting.State == GameSetting.GameState.Idle)
+                    MenuPanelActivator(TitlePanel);
+                else if (setting.State == GameSetting.GameState.End)
+                {
+                    TitlePanel.SetActive(true);
+                    MenuPanelActivator(GameOverPanel);
+                }
+            }
+
+            isLeftPadActive = true;
+        }
+        else if (Input.GetAxisRaw("DPAD X-Axis") == 0)
+        {
+            isLeftPadActive = false;
+        }
+
+        if (Input.GetAxisRaw("DPAD X-Axis") == 1 && !isRightPadActive)
+        {
+            if (currentMenuPanel == CreditsPanel)
+            {
+                if (setting.State == GameSetting.GameState.Idle)
+                    MenuPanelActivator(TitlePanel);
+                else if (setting.State == GameSetting.GameState.End)
+                {
+                    TitlePanel.SetActive(true);
+                    MenuPanelActivator(GameOverPanel);
+                }
+            }
+            else if ((setting.State == GameSetting.GameState.Idle || setting.State == GameSetting.GameState.End) && (currentMenuPanel == TitlePanel || currentMenuPanel == GameOverPanel))
+            {
+                if (setting.State == GameSetting.GameState.End)
+                    TitlePanel.SetActive(false);
+
+                MenuPanelActivator(HowToPlayPanel);
+            }
+
+            isRightPadActive = true;
+        }
+        else if (Input.GetAxisRaw("DPAD X-Axis") == 0)
+        {
+            isRightPadActive = false;
+        }
+
+        if (Input.GetAxisRaw("DPAD Y-Axis") == 1 && !isUpPadActive)
+        {
+            isUpPadActive = true;
+        }
+        else if (Input.GetAxisRaw("DPAD Y-Axis") == 0)
+        {
+            isUpPadActive = false;
+        }
+
+        if (Input.GetAxisRaw("DPAD Y-Axis") == -1 && !isDownPadActive)
+        {
+            isDownPadActive = true;
+        }
+        else if (Input.GetAxisRaw("DPAD Y-Axis") == 0)
+        {
+            isDownPadActive = false;
+        }
+
+        if (Input.GetButtonDown("Touchpad") && (setting.State == GameSetting.GameState.Idle || setting.State == GameSetting.GameState.End))
+        {
+            setting.State = GameSetting.GameState.Ready;
+        }
+
+        switch (setting.State)
+        {
+            case GameSetting.GameState.Idle:
+                startTimer = 4;
                 countDownUI.gameObject.SetActive(false);
                 break;
-            case GameState.Ready:
+            case GameSetting.GameState.Ready:
+                currentMenuPanel = MainMenuPanel;
+                MenuPanelActivator(inGameUIGroup);
                 Timer = setting.GameTime;
                 startTimer -= Time.deltaTime;
                 if (startTimer <= 0)
                 {
-                    State = GameState.Play;
+                    setting.State = GameSetting.GameState.Play;
                 }
                 countDownUI.UpdateValue(startTimer);
                 countDownUI.gameObject.SetActive(true);
                 break;
-            case GameState.Play:
+            case GameSetting.GameState.Play:
                 Timer -= Time.deltaTime;
                 if (Timer <= 0)
                 {
-                    State = GameState.End;
+                    setting.State = GameSetting.GameState.End;
 
                     // Decide Game End State
+                    if (setting.Critter.CurrentHealth > setting.Farmer.CurrentHealth)
+                    {
+                        FarmerWinScreen.SetActive(false);
+                        CritterWinScreen.SetActive(true);
+                    }
+
+                    MenuPanelActivator(GameOverPanel);
+                    MainMenuPanel.SetActive(true);
                 }
-                
+
                 countDownUI.gameObject.SetActive(false);
                 break;
-            case GameState.End:
-                startTimer = 3;
+                case GameSetting.GameState.End:
+
+
+                startTimer = 4;
                 countDownUI.gameObject.SetActive(false);
                 break;
         }

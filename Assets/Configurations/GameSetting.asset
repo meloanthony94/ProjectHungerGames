@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: GameSetting
   m_EditorClassIdentifier: 
   Farmer:
-    InitHealth: 50
+    InitHealth: 90
     HealthGainAmount: 5
     HealthLostAmount: 5
     HealthLostRate: 0
+    CurrentHealth: 90
     DigSpeedFast: 1
     DigSpeedSlow: 2
     PlantSpeedFast: 1
@@ -30,6 +31,7 @@ MonoBehaviour:
     HealthGainAmount: 5
     HealthLostAmount: 2
     HealthLostRate: 1
+    CurrentHealth: 95.92429
     DigSpeedFast: 0
     DigSpeedSlow: 0
     PlantSpeedFast: 0
@@ -40,3 +42,4 @@ MonoBehaviour:
     EatSpeedSlow: 1
   GameTime: 20
   PlayerRaycastLength: 3.2
+  State: 2

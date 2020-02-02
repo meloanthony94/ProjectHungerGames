@@ -6,6 +6,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameSetting", menuName = "GameSetting", order = 1)]
 public class GameSetting : ScriptableObject
 {
+    public enum GameState
+    {
+        Idle,
+        Ready,
+        Play,
+        End
+    }
+
     [Header("Player Setting")]
     public TeamSetting Farmer;
     public TeamSetting Critter;
@@ -13,6 +21,7 @@ public class GameSetting : ScriptableObject
     [Header("Global Setting")]
     public float GameTime = 20f;
     public float PlayerRaycastLength = 5;
+    public GameState State;
 
     [System.Serializable]
     public class TeamSetting
@@ -22,6 +31,7 @@ public class GameSetting : ScriptableObject
         public float HealthGainAmount;
         public float HealthLostAmount;
         public float HealthLostRate;
+        public float CurrentHealth;
 
         [Header("Action Speed")]
         public float DigSpeedFast;
