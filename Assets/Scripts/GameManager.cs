@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private CountdownUI countDownUI;
 
+
     public GameObject MainMenuPanel;
     public GameObject PausePanel;
     public GameObject TitlePanel;
@@ -30,6 +31,9 @@ public class GameManager : MonoBehaviour
     public GameObject inGameUIGroup;
     public GameObject CritterWinScreen;
     public GameObject FarmerWinScreen;
+
+    [SerializeField]
+    private CountdownTimerUI gameTimerUI;
 
     GameObject currentMenuPanel;
 
@@ -169,6 +173,7 @@ public class GameManager : MonoBehaviour
                     MainMenuPanel.SetActive(true);
                 }
 
+                gameTimerUI.UpdateTimer(Timer);
                 countDownUI.gameObject.SetActive(false);
                 break;
                 case GameSetting.GameState.End:
