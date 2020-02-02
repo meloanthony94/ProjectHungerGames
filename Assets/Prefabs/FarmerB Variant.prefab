@@ -15,7 +15,12 @@ PrefabInstance:
     - target: {fileID: 5336470930760317684, guid: c6a33c497192b44949987871541a93d3,
         type: 3}
       propertyPath: m_Name
-      value: FarmerB
+      value: FarmerB Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5336470930760317684, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5336470930760317685, guid: c6a33c497192b44949987871541a93d3,
         type: 3}

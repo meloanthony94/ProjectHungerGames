@@ -51,7 +51,14 @@ public class Character : MonoBehaviour
     float dashForce;
 
     [SerializeField]
+    [Range(0.0f, 10.0f)]
+    float attackForce;
+
+    [SerializeField]
     ForceMode DashType;
+
+    [SerializeField]
+    ForceMode AttackType;
 
     bool isDashing = false;
     bool isDashingLocked = false;
@@ -193,6 +200,13 @@ public class Character : MonoBehaviour
         }
     }
 
+    public void OnAttacked()
+    {
+        isPerformingAction = false;
+        myProgressBar.gameObject.SetActive(false);
+        myRigidBody.isKinematic = false;
+    }
+
     void PerformPlotAction(ActionType action)
     {
         currentActionTime += Time.deltaTime;
@@ -205,6 +219,21 @@ public class Character : MonoBehaviour
             CurrentPlotReference.ChangeState();
             myProgressBar.gameObject.SetActive(false);
             myRigidBody.isKinematic = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("OnCollision");
+            if (isDashing)
+            {
+                Character other = collision.gameObject.GetComponent<Character>();
+                other?.OnAttacked();
+                collision.rigidbody.AddForce(transform.forward * attackForce, AttackType);
+                  
+            }
         }
     }
 

@@ -18,10 +18,10 @@ MonoBehaviour:
     HealthLostAmount: 5
     HealthLostRate: 0
     CurrentHealth: 90
-    DigSpeedFast: 0.25
-    DigSpeedSlow: 0.75
-    PlantSpeedFast: 0.75
-    PlantSpeedSlow: 0.25
+    DigSpeedFast: 5
+    DigSpeedSlow: 5
+    PlantSpeedFast: 5
+    PlantSpeedSlow: 5
     HarvestSpeedFast: 0
     HarvestSpeedSlow: 0
     EatSpeedFast: 0
@@ -36,10 +36,10 @@ MonoBehaviour:
     DigSpeedSlow: 0
     PlantSpeedFast: 0
     PlantSpeedSlow: 0
-    HarvestSpeedFast: 0.25
-    HarvestSpeedSlow: 0.75
-    EatSpeedFast: 0.75
-    EatSpeedSlow: 0.25
+    HarvestSpeedFast: 5
+    HarvestSpeedSlow: 5
+    EatSpeedFast: 5
+    EatSpeedSlow: 5
   GameTime: 20
   PlayerRaycastLength: 1
   State: 0

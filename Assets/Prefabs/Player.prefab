@@ -205,11 +205,16 @@ MonoBehaviour:
       m_Calls: []
   playerId: 0
   gameSettings: {fileID: 11400000, guid: e89f2e140ada94a7385aa2e34814120c, type: 2}
+  myProgressBar: {fileID: 0}
+  actionUI: {fileID: 0}
   isCritter: 0
+  isFastCharacter: 0
   walkSpeed: 0.1
   dashForce: 700
+  attackForce: 2
   DashType: 0
-  dashCooldownTime: 5
+  AttackType: 1
+  dashCooldownTime: 1
   minimumDashVelocity: 0.5
 --- !u!54 &5768478776532664927
 Rigidbody:
