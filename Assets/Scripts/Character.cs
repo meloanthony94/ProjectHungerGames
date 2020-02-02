@@ -118,16 +118,20 @@ public class Character : MonoBehaviour
             Vector3 input = new Vector3(Input.GetAxis("Horizontal" + playerId), 0, -Input.GetAxis("Vertical" + playerId));
             if (input != Vector3.zero)
             {
+                animator.SetFloat("DashMulti", 1);
+                animator.SetBool("dash", true);
                 transform.forward = input;
                 myRigidBody.MovePosition(transform.position + (transform.forward * walkSpeed));
                 //transform.Translate(transform.forward * movementSpeed, Space.World);
             }
+            else
+                animator.SetBool("dash", false);
         }
         else
         {
             if (myRigidBody.velocity.magnitude < minimumDashVelocity)
             {
-                animator.SetTrigger("idle");
+                //animator.SetTrigger("idle");
                 isDashing = false;
                 StartCoroutine(DashCooldownTimer());
             }
@@ -135,13 +139,14 @@ public class Character : MonoBehaviour
         //
 
         //Controls
-        if (Input.GetButtonDown("Dash" + playerId) && !isDashing && !isDashingLocked/* || Input.GetKeyDown(KeyCode.D)*/)
+        if (Input.GetButtonDown("Dash" + playerId) && !isDashing && !isDashingLocked /*|| Input.GetKeyDown(KeyCode.D)*/)
         {
             isDashing = true;
 
             if (gameSettings.State == GameSetting.GameState.Play)
             {
-                animator.SetTrigger("dash");
+                animator.SetBool("dash", true);
+                animator.SetFloat("DashMulti", 2);
                 PlaySFX(dashSFXclip);
             }
 
