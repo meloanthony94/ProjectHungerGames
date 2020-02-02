@@ -1041,6 +1041,21 @@ PrefabInstance:
       propertyPath: DashType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5336470930850428160, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: actionAStartSFXclip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7391ec021b2eddf43a89d8b446c97345, type: 3}
+    - target: {fileID: 5336470930850428160, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: actionBStartSFXclip
+      value: 
+      objectReference: {fileID: 8300000, guid: 86b657ceaf807014cb8a0596bee986c0, type: 3}
+    - target: {fileID: 5336470930850428160, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: bumpSFXclip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2ce0ddfe6f060c04dbe4174301b3892a, type: 3}
     - target: {fileID: 5336470930850428161, guid: c6a33c497192b44949987871541a93d3,
         type: 3}
       propertyPath: m_Size.y
@@ -4381,6 +4396,21 @@ PrefabInstance:
       propertyPath: DashType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5336470930850428160, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: actionAStartSFXclip
+      value: 
+      objectReference: {fileID: 8300000, guid: cf842b4f434aeaa428b0113d828c5394, type: 3}
+    - target: {fileID: 5336470930850428160, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: actionBStartSFXclip
+      value: 
+      objectReference: {fileID: 8300000, guid: 02e5e5a03b74f1b449a51dee9e7333cd, type: 3}
+    - target: {fileID: 5336470930850428160, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: bumpSFXclip
+      value: 
+      objectReference: {fileID: 8300000, guid: a8c1cbd2562cffd469df4b9f5633b6fa, type: 3}
     - target: {fileID: 5336470930850428161, guid: c6a33c497192b44949987871541a93d3,
         type: 3}
       propertyPath: m_Size.y
@@ -7977,7 +8007,17 @@ PrefabInstance:
         type: 3}
       propertyPath: bumpSFXclip
       value: 
-      objectReference: {fileID: 8300000, guid: 9c67f216972354f41a762c66832c60e2, type: 3}
+      objectReference: {fileID: 8300000, guid: f1ed5b593af5d4343bbbdfad4b796a33, type: 3}
+    - target: {fileID: 5336470930850428160, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: actionAStartSFXclip
+      value: 
+      objectReference: {fileID: 8300000, guid: cf842b4f434aeaa428b0113d828c5394, type: 3}
+    - target: {fileID: 5336470930850428160, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: actionBStartSFXclip
+      value: 
+      objectReference: {fileID: 8300000, guid: 02e5e5a03b74f1b449a51dee9e7333cd, type: 3}
     - target: {fileID: 5336470930850428161, guid: c6a33c497192b44949987871541a93d3,
         type: 3}
       propertyPath: m_Size.y
@@ -7992,6 +8032,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5336470930850428167, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5336470930850428220, guid: c6a33c497192b44949987871541a93d3,
         type: 3}
@@ -9867,6 +9912,21 @@ PrefabInstance:
       propertyPath: DashType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5336470930850428160, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: actionAStartSFXclip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7391ec021b2eddf43a89d8b446c97345, type: 3}
+    - target: {fileID: 5336470930850428160, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: actionBStartSFXclip
+      value: 
+      objectReference: {fileID: 8300000, guid: 86b657ceaf807014cb8a0596bee986c0, type: 3}
+    - target: {fileID: 5336470930850428160, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: bumpSFXclip
+      value: 
+      objectReference: {fileID: 8300000, guid: faf925e8313862d45952fa1100fc0681, type: 3}
     - target: {fileID: 5336470930850428161, guid: c6a33c497192b44949987871541a93d3,
         type: 3}
       propertyPath: m_Size.y
@@ -9881,6 +9941,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5336470930850428167, guid: c6a33c497192b44949987871541a93d3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5336470930850428220, guid: c6a33c497192b44949987871541a93d3,
         type: 3}
@@ -13582,8 +13647,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4279253127
+  m_fontColor: {r: 0.5294118, g: 0.21960786, b: 0.0627451, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
