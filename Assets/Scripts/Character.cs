@@ -35,7 +35,10 @@ public class Character : MonoBehaviour
     AudioSource myAudioSource;
 
     [SerializeField]
-    AudioClip actionStartSFXclip;
+    AudioClip actionAStartSFXclip;
+
+    [SerializeField]
+    AudioClip actionBStartSFXclip;
 
     [SerializeField]
     AudioClip actionEndSFXclip;
@@ -166,8 +169,7 @@ public class Character : MonoBehaviour
             {
                 if (CurrentPlotReference.Action(isCritter) != ActionType.None)
                 {
-                    animator.SetTrigger("action");
-                    PlaySFX(actionStartSFXclip);
+                    animator.SetBool("action", true);
                     isPerformingAction = true;
                     currentActionTime = 0;
                     SetActionTime(CurrentPlotReference.Action(isCritter));
@@ -235,24 +237,28 @@ public class Character : MonoBehaviour
         switch (action)
         {
             case ActionType.Dig:
+                PlaySFX(actionAStartSFXclip);
                 if (isFastCharacter)
                     actionCompleteTime = currentTeam.DigSpeedFast;
                 else
                     actionCompleteTime = currentTeam.DigSpeedSlow;
                 break;
             case ActionType.Plant:
+                PlaySFX(actionBStartSFXclip);
                 if (isFastCharacter)
                     actionCompleteTime = currentTeam.PlantSpeedFast;
                 else
                     actionCompleteTime = currentTeam.PlantSpeedSlow;
                 break;
             case ActionType.Harvest:
+                PlaySFX(actionAStartSFXclip);
                 if (isFastCharacter)
                     actionCompleteTime = currentTeam.HarvestSpeedFast;
                 else
                     actionCompleteTime = currentTeam.HarvestSpeedSlow;
                 break;
             case ActionType.Eat:
+                PlaySFX(actionBStartSFXclip);
                 if (isFastCharacter)
                     actionCompleteTime = currentTeam.EatSpeedFast;
                 else
