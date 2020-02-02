@@ -142,7 +142,7 @@ public class Character : MonoBehaviour
 
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * gameSettings.PlayerRaycastLength, Color.white);
 
-        if (Input.GetButtonDown("Action" + playerId) && !isPerformingAction)
+        if (Input.GetButtonDown("Action" + playerId) && !isPerformingAction && gameSettings.State == GameSetting.GameState.Play)
         {
             if (CurrentPlotReference != null)
             {
