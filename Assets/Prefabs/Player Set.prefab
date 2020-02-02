@@ -461,7 +461,7 @@ PrefabInstance:
         type: 3}
       propertyPath: actionSFXclip
       value: 
-      objectReference: {fileID: 8300000, guid: 9c67f216972354f41a762c66832c60e2, type: 3}
+      objectReference: {fileID: 8300000, guid: 95c39ea966068624fbff28572c265cc4, type: 3}
     - target: {fileID: 5768478776532664930, guid: 6ca7d71f743321b4db2292550716240f,
         type: 3}
       propertyPath: dashSFXclip
@@ -472,6 +472,16 @@ PrefabInstance:
       propertyPath: bumpSFXclip
       value: 
       objectReference: {fileID: 8300000, guid: 9c67f216972354f41a762c66832c60e2, type: 3}
+    - target: {fileID: 5768478776532664930, guid: 6ca7d71f743321b4db2292550716240f,
+        type: 3}
+      propertyPath: actionEndSFXclip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2aaab4e3a8ecd474abf8730161f41895, type: 3}
+    - target: {fileID: 5768478776532664930, guid: 6ca7d71f743321b4db2292550716240f,
+        type: 3}
+      propertyPath: actionStartSFXclip
+      value: 
+      objectReference: {fileID: 8300000, guid: 95c39ea966068624fbff28572c265cc4, type: 3}
     - target: {fileID: 5768478776532664933, guid: 6ca7d71f743321b4db2292550716240f,
         type: 3}
       propertyPath: m_Name

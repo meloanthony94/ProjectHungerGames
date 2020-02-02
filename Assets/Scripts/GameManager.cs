@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(Input.GetAxisRaw("DPAD X-Axis"));
         // Handle Input
         if (Input.GetAxisRaw("DPAD X-Axis") == -1 && !isLeftPadActive)
         {

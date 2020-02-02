@@ -35,7 +35,10 @@ public class Character : MonoBehaviour
     AudioSource myAudioSource;
 
     [SerializeField]
-    AudioClip actionSFXclip;
+    AudioClip actionStartSFXclip;
+
+    [SerializeField]
+    AudioClip actionEndSFXclip;
 
     [SerializeField]
     AudioClip dashSFXclip;
@@ -131,7 +134,10 @@ public class Character : MonoBehaviour
         if (Input.GetButtonDown("Dash" + playerId) && !isDashing && !isDashingLocked)
         {
             isDashing = true;
-            PlaySFX(dashSFXclip);
+
+            if(gameSettings.State == GameSetting.GameState.Play)
+                PlaySFX(dashSFXclip);
+
             myRigidBody.AddForce(transform.forward * dashForce, DashType);
         }
 
@@ -143,6 +149,7 @@ public class Character : MonoBehaviour
             {
                 if (CurrentPlotReference.Action(isCritter) != ActionType.None)
                 {
+                    PlaySFX(actionStartSFXclip);
                     isPerformingAction = true;
                     currentActionTime = 0;
                     SetActionTime(CurrentPlotReference.Action(isCritter));
@@ -157,9 +164,11 @@ public class Character : MonoBehaviour
             if (CurrentPlotReference != null)
             {
                 PerformPlotAction(CurrentPlotReference.Action(isCritter));
-                PlaySFX(actionSFXclip, false, true);
             }
         }
+
+        if(gameSettings.State == GameSetting.GameState.End)
+            myAudioSource.Stop();
     }
 
     void PlaySFX(AudioClip clip, bool isOneShot = true, bool isLooped = false)
@@ -255,7 +264,7 @@ public class Character : MonoBehaviour
 
         if (currentActionTime >= actionCompleteTime)
         {
-            myAudioSource.Stop();
+            PlaySFX(actionEndSFXclip);
             isPerformingAction = false;
             CurrentPlotReference.ChangeState();
             myProgressBar.gameObject.SetActive(false);
